@@ -1,6 +1,6 @@
 use soroban_sdk::{contract, contractimpl, unwrap::UnwrapOptimized, Address, Env, Vec};
 
-use sep_40_price_feed::{Asset, PriceData, PriceFeedTrait};
+use sep_40_oracle::{Asset, PriceData, PriceFeedTrait};
 
 use crate::storage;
 
@@ -13,7 +13,7 @@ use crate::storage;
 #[contract]
 pub struct MockOracle;
 
-trait MockOraclePrice {
+trait MockPriceFeed {
     /// Set the data for the mock price feed oracle.
     fn set_data(
         env: Env,
@@ -38,7 +38,7 @@ trait MockOraclePrice {
 }
 
 #[contractimpl]
-impl MockOraclePrice for MockOracle {
+impl MockPriceFeed for MockOracle {
     fn set_data(
         env: Env,
         admin: Address,

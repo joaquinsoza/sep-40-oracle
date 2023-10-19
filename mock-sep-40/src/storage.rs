@@ -1,25 +1,13 @@
-use sep_40_price_feed::Asset;
+use sep_40_oracle::Asset;
 use soroban_sdk::{
-    contracttype, panic_with_error, unwrap::UnwrapOptimized, Address, Env, Symbol, Vec,
+    panic_with_error, unwrap::UnwrapOptimized, Address, Env, Symbol, Vec,
 };
 
-use crate::error::PriceFeedError;
+use crate::error::PriceOracleError;
 
 pub(crate) const LEDGER_THRESHOLD: u32 = 120960; // 7 days at 5s a block
 pub(crate) const LEDGER_BUMP: u32 = 138240; // 8 days at 5s a block
 
-#[derive(Clone)]
-#[contracttype]
-pub enum MockOracleDataKey {
-    // The address that can manage the oracle
-    Admin,
-    // The number of decimals reported
-    Decimals,
-    // The map of asset price sources (asset contractId -> price source contractId)
-    Sources(Address),
-    // MOCK: Map of prices to return
-    Prices(Address),
-}
 
 pub fn bump_instance(env: &Env) {
     env.storage().instance().bump(LEDGER_THRESHOLD, LEDGER_BUMP);
@@ -106,7 +94,7 @@ pub fn get_asset_index(env: &Env, asset: &Asset) -> u8 {
     }
     match index {
         Some(index) => index as u8,
-        None => panic_with_error!(env, PriceFeedError::AssetMissing),
+        None => panic_with_error!(env, PriceOracleError::AssetMissing),
     }
 }
 

@@ -1,9 +1,12 @@
 [package]
-name = "sep-40-price-feed"
+name = "sep-40-oracle"
 version = "0.1.0"
 authors = ["Script3 <support@script3.io>"]
+repository = "https://github.com/script3/sep-40-oracle"
 license = "MIT"
 edition = "2021"
+readme = "README.md"
+keywords = ["no_std", "wasm", "soroban"]
 
 [lib]
 crate-type = ["cdylib", "rlib"]

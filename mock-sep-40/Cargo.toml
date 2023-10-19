@@ -1,5 +1,5 @@
 [package]
-name = "test-sep-40-price-feed"
+name = "mock-sep-40-oracle"
 version = "0.1.0"
 authors = ["Script3 <support@script3.io>"]
 license = "MIT"
@@ -15,7 +15,7 @@ testutils = ["soroban-sdk/testutils"]
 
 [dependencies]
 soroban-sdk = { workspace = true }
-sep-40-price-feed = { path = "../sep-40" }
+sep-40-oracle = { path = "../sep-40" }
 
 [dev_dependencies]
 soroban-sdk = { workspace = true, features = ["testutils"] }

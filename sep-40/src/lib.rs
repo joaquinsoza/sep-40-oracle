@@ -3,6 +3,9 @@
 
 #![no_std]
 
+#[cfg(any(test, feature = "testutils"))]
+pub mod testutils;
+
 use soroban_sdk::{contractclient, contracttype, Address, Env, Symbol, Vec};
 
 /// Price data for an asset at a specific timestamp
@@ -22,7 +25,7 @@ pub enum Asset {
 }
 
 /// Oracle feed interface description
-#[contractclient(name = "SEP40PriceFeedClient")]
+#[contractclient(name = "PriceFeedClient")]
 pub trait PriceFeedTrait {
     /// Return the base asset the price is reported in
     fn base(env: Env) -> Asset;

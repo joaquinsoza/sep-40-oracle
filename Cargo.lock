@@ -629,6 +629,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "mock-sep-40-oracle"
+version = "0.1.0"
+dependencies = [
+ "sep-40-oracle",
+ "soroban-sdk",
+]
+
+[[package]]
 name = "num-bigint"
 version = "0.4.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -828,7 +836,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "836fa6a3e1e547f9a2c4040802ec865b5d85f4014efe00555d7090a3dcaa1090"
 
 [[package]]
-name = "sep-40-price-feed"
+name = "sep-40-oracle"
 version = "0.1.0"
 dependencies = [
  "soroban-sdk",
@@ -1169,14 +1177,6 @@ dependencies = [
  "proc-macro2",
  "quote",
  "unicode-ident",
-]
-
-[[package]]
-name = "test-sep-40-price-feed"
-version = "0.1.0"
-dependencies = [
- "sep-40-price-feed",
- "soroban-sdk",
 ]
 
 [[package]]

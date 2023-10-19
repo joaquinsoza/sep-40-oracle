@@ -1,6 +1,6 @@
 #![cfg(test)]
 
-use sep_40_price_feed::Asset;
+use sep_40_oracle::Asset;
 use soroban_sdk::{testutils::{Address as _, Ledger, LedgerInfo}, Address, Env, Vec, vec, Symbol};
 
 use super::*;
