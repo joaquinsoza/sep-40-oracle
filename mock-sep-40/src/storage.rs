@@ -1,13 +1,10 @@
 use sep_40_oracle::Asset;
-use soroban_sdk::{
-    panic_with_error, unwrap::UnwrapOptimized, Address, Env, Symbol, Vec,
-};
+use soroban_sdk::{panic_with_error, unwrap::UnwrapOptimized, Address, Env, Symbol, Vec};
 
 use crate::error::PriceOracleError;
 
 pub(crate) const LEDGER_THRESHOLD: u32 = 120960; // 7 days at 5s a block
 pub(crate) const LEDGER_BUMP: u32 = 138240; // 8 days at 5s a block
-
 
 pub fn bump_instance(env: &Env) {
     env.storage().instance().bump(LEDGER_THRESHOLD, LEDGER_BUMP);

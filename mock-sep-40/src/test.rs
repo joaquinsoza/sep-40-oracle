@@ -1,7 +1,10 @@
 #![cfg(test)]
 
 use sep_40_oracle::Asset;
-use soroban_sdk::{testutils::{Address as _, Ledger, LedgerInfo}, Address, Env, Vec, vec, Symbol};
+use soroban_sdk::{
+    testutils::{Address as _, Ledger, LedgerInfo},
+    vec, Address, Env, Symbol, Vec,
+};
 
 use super::*;
 
@@ -19,7 +22,6 @@ fn setup_price_feed_oracle<'a>(
     oracle_client.set_data(admin, base, assets, &decimals, &resolution);
     (oracle_id, oracle_client)
 }
-
 
 #[test]
 fn test_stable_price_feed() {
@@ -55,7 +57,7 @@ fn test_stable_price_feed() {
     let prices: Vec<i128> = vec![&env, 94_234_1234567, 1_1021304];
     oracle_client.set_price_stable(&prices);
 
-    // verify price data can be fetched 
+    // verify price data can be fetched
     let price_1 = oracle_client.lastprice(&asset_1).unwrap();
     assert_eq!(price_1.price, prices.get_unchecked(0));
     assert_eq!(price_1.timestamp, start_time);
@@ -120,7 +122,7 @@ fn test_price_feed() {
     let prices_1: Vec<i128> = vec![&env, 94_234_1234567, 1_1021304];
     oracle_client.set_price(&prices_1, &start_time);
 
-    // verify price data can be fetched 
+    // verify price data can be fetched
     let result_1 = oracle_client.lastprice(&asset_1).unwrap();
     assert_eq!(result_1.price, prices_1.get_unchecked(0));
     assert_eq!(result_1.timestamp, start_time);
