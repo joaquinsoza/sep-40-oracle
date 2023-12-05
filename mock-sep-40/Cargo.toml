@@ -1,6 +1,6 @@
 [package]
 name = "mock-sep-40-oracle"
-version = "0.1.1"
+version = "0.2.0"
 authors = ["Script3 <support@script3.io>"]
 license = "MIT"
 edition = "2021"

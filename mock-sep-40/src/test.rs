@@ -16,7 +16,7 @@ fn setup_price_feed_oracle<'a>(
     decimals: u32,
     resolution: u32,
 ) -> (Address, MockOracleClient<'a>) {
-    let oracle_id = Address::random(env);
+    let oracle_id = Address::generate(env);
     env.register_contract(&oracle_id, MockOracle {});
     let oracle_client = MockOracleClient::new(env, &oracle_id);
     oracle_client.set_data(admin, base, assets, &decimals, &resolution);
@@ -35,14 +35,14 @@ fn test_stable_price_feed() {
         sequence_number: start_block,
         network_id: Default::default(),
         base_reserve: 10,
-        min_temp_entry_expiration: 10,
-        min_persistent_entry_expiration: 10,
-        max_entry_expiration: u32::MAX,
+        min_temp_entry_ttl: 16,
+        min_persistent_entry_ttl: 4096,
+        max_entry_ttl: 6312000,
     });
 
-    let bomadil = Address::random(&env);
+    let bomadil = Address::generate(&env);
     let base = Asset::Other(Symbol::new(&env, "USD"));
-    let asset_1 = Asset::Stellar(Address::random(&env));
+    let asset_1 = Asset::Stellar(Address::generate(&env));
     let asset_2 = Asset::Other(Symbol::new(&env, "EURO"));
 
     let (_, oracle_client) = setup_price_feed_oracle(
@@ -73,9 +73,9 @@ fn test_stable_price_feed() {
         sequence_number: start_block + (6 * 24 * 60 * 60) / 5,
         network_id: Default::default(),
         base_reserve: 10,
-        min_temp_entry_expiration: 10,
-        min_persistent_entry_expiration: 10,
-        max_entry_expiration: u32::MAX,
+        min_temp_entry_ttl: 16,
+        min_persistent_entry_ttl: 4096,
+        max_entry_ttl: 6312000,
     });
 
     // verify price data can still be fetched and timestamp adapts
@@ -100,14 +100,14 @@ fn test_price_feed() {
         sequence_number: start_block,
         network_id: Default::default(),
         base_reserve: 10,
-        min_temp_entry_expiration: 10,
-        min_persistent_entry_expiration: 10,
-        max_entry_expiration: u32::MAX,
+        min_temp_entry_ttl: 16,
+        min_persistent_entry_ttl: 4096,
+        max_entry_ttl: 6312000,
     });
 
-    let bomadil = Address::random(&env);
+    let bomadil = Address::generate(&env);
     let base = Asset::Other(Symbol::new(&env, "USD"));
-    let asset_1 = Asset::Stellar(Address::random(&env));
+    let asset_1 = Asset::Stellar(Address::generate(&env));
     let asset_2 = Asset::Other(Symbol::new(&env, "EURO"));
 
     let (_, oracle_client) = setup_price_feed_oracle(
@@ -138,9 +138,9 @@ fn test_price_feed() {
         sequence_number: start_block + 325 / 5,
         network_id: Default::default(),
         base_reserve: 10,
-        min_temp_entry_expiration: 10,
-        min_persistent_entry_expiration: 10,
-        max_entry_expiration: u32::MAX,
+        min_temp_entry_ttl: 16,
+        min_persistent_entry_ttl: 4096,
+        max_entry_ttl: 6312000,
     });
 
     // verify price data can still be fetched and timestamp does not

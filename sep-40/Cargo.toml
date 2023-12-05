@@ -1,6 +1,6 @@
 [package]
 name = "sep-40-oracle"
-version = "0.1.1"
+version = "0.2.0"
 description = "SEP-0040 Price Feed Oracle trait, client, and mock implementation"
 authors = ["Script3 <support@script3.io>"]
 repository = "https://github.com/script3/sep-40-oracle"
