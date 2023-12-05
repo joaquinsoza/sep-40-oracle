@@ -62,14 +62,14 @@ impl MockPriceFeed for MockOracle {
         for (i, asset) in assets.into_iter().enumerate() {
             storage::set_asset_index(&env, &asset, i as u32);
         }
-        storage::bump_instance(&env);
+        storage::extend_instance(&env);
     }
 
     fn set_price(env: Env, prices: Vec<i128>, timestamp: u64) {
         let admin = storage::get_admin(&env);
         admin.require_auth();
 
-        storage::bump_instance(&env);
+        storage::extend_instance(&env);
         storage::set_last_timestamp(&env, timestamp);
         set_prices(&env, prices, timestamp);
     }
@@ -78,7 +78,7 @@ impl MockPriceFeed for MockOracle {
         let admin = storage::get_admin(&env);
         admin.require_auth();
 
-        storage::bump_instance(&env);
+        storage::extend_instance(&env);
         storage::set_last_timestamp(&env, 0);
         set_prices(&env, prices, 0);
     }

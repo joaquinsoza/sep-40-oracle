@@ -6,8 +6,10 @@ use crate::error::PriceOracleError;
 pub(crate) const LEDGER_THRESHOLD: u32 = 120960; // 7 days at 5s a block
 pub(crate) const LEDGER_BUMP: u32 = 138240; // 8 days at 5s a block
 
-pub fn bump_instance(env: &Env) {
-    env.storage().instance().bump(LEDGER_THRESHOLD, LEDGER_BUMP);
+pub fn extend_instance(env: &Env) {
+    env.storage()
+        .instance()
+        .extend_ttl(LEDGER_THRESHOLD, LEDGER_BUMP);
 }
 
 //********** Instance storage ***********//
@@ -115,7 +117,7 @@ pub fn get_price(env: &Env, asset: u8, timestamp: u64) -> Option<i128> {
     if result.is_some() && timestamp == 0 {
         env.storage()
             .temporary()
-            .bump(&data_key, LEDGER_THRESHOLD, LEDGER_BUMP);
+            .extend_ttl(&data_key, LEDGER_THRESHOLD, LEDGER_BUMP);
     }
     result
 }
@@ -125,7 +127,7 @@ pub fn set_price(env: &Env, asset: u8, price: i128, timestamp: u64) {
     env.storage().temporary().set(&data_key, &price);
     env.storage()
         .temporary()
-        .bump(&data_key, LEDGER_BUMP, LEDGER_BUMP);
+        .extend_ttl(&data_key, LEDGER_BUMP, LEDGER_BUMP);
 }
 
 pub fn get_last_timestamp(env: &Env) -> u64 {
@@ -141,5 +143,5 @@ pub fn set_last_timestamp(env: &Env, timestamp: u64) {
         .set(&Symbol::new(env, "timestamp"), &timestamp);
     env.storage()
         .temporary()
-        .bump(&Symbol::new(env, "timestamp"), LEDGER_BUMP, LEDGER_BUMP);
+        .extend_ttl(&Symbol::new(env, "timestamp"), LEDGER_BUMP, LEDGER_BUMP);
 }
