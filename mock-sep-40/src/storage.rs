@@ -3,8 +3,10 @@ use soroban_sdk::{panic_with_error, unwrap::UnwrapOptimized, Address, Env, Symbo
 
 use crate::error::PriceOracleError;
 
-pub(crate) const LEDGER_THRESHOLD: u32 = 120960; // 7 days at 5s a block
-pub(crate) const LEDGER_BUMP: u32 = 138240; // 8 days at 5s a block
+const ONE_DAY_LEDGERS: u32 = 17280; // assumes 5s a ledger
+
+const LEDGER_THRESHOLD: u32 = ONE_DAY_LEDGERS * 30; // ~ 30 days
+const LEDGER_BUMP: u32 = LEDGER_THRESHOLD + ONE_DAY_LEDGERS; // ~ 31 days
 
 pub fn extend_instance(env: &Env) {
     env.storage()
